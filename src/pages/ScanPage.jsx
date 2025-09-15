@@ -98,6 +98,8 @@ export default function ScanPage() {
         if (!docsq.empty) {
           setMessage("Ya registraste asistencia para esta comisión hoy.");
           return;
+        } else {
+          setMessage("primer registro de asistencia a la clase correcto");
         }
 
         const nombreCompleto = user.displayName || "";
