@@ -82,14 +82,18 @@ export default function ScanPage() {
         if (!comisionValida) {
           setMessage("No estás dentro de la franja horaria de ninguna comisión hoy.");
           return;
+        } else {
+          setMessage("estas en una comision valida");
         }
 
         // [Paso 4: Evitar duplicados y guardar asistencia]
-        const comisionId = comisionValida.id; // Obtener el ID de la comisión encontrada
-        const q2 = query(collection(db, "asistencias"),
+        const comisionId = comisionValida.id;
+        const q2 = query(
+          collection(db, "asistencias"),
           where("alumno.uid", "==", user.uid),
           where("comisionId", "==", comisionId),
-          where("fecha", "==", hoyStr));
+          where("diaSemana", "==", diaHoy) // Reemplaza "fecha" con "diaSemana"
+        );
         const docsq = await getDocs(q2);
         if (!docsq.empty) {
           setMessage("Ya registraste asistencia para esta comisión hoy.");
@@ -104,7 +108,8 @@ export default function ScanPage() {
           materiaId: comisionValida.data.materiaId,
           comisionId,
           aulaId,
-          fecha: hoyStr,
+          fecha: hoyStr, // It's still a good idea to save the specific date
+          diaSemana: diaHoy, // Add the day of the week here
           hora: hoy.toTimeString().slice(0, 5),
           geo: { lat, lng },
           creadoEn: serverTimestamp(),
