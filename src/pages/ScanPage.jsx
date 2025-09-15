@@ -48,12 +48,15 @@ export default function ScanPage() {
         }
 
         // [Paso 2: Encontrar la comisión por el aula, día y hora]
+        const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
         const hoy = new Date();
-        const hoyStr = hoy.toISOString().slice(0, 10);
+        const diaHoy = diasSemana[hoy.getDay()];
+
+        // [Paso 2: Encontrar la comisión por el aula, día de la semana y hora]
         const q = query(
           collection(db, "comisiones"),
           where("aulaId", "==", aulaId), // Buscar por el ID del aula escaneada
-          where("fecha", "==", hoyStr) // Buscar por la fecha de hoy
+          where("diaSemana", "==", diaHoy) // Buscar por el día de la semana actual
         );
         const comisionesEncontradas = await getDocs(q);
 
