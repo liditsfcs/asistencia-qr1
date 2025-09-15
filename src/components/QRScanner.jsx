@@ -1,17 +1,16 @@
 import React from "react";
-import { QrReader } from "react-qr-reader";
+import QrScanner from 'react-qr-scanner';
 
 export default function QRScanner({ onResult }) {
   return (
     <div>
-      <QrReader
-        constraints={{ facingMode: "environment" }}
-        onResult={(result, error) => {
-          if (!!result) {
-            onResult(result?.text);
-          }
+      <QrScanner
+        delay={300}
+        onError={(err) => console.error(err)}
+        onScan={(data) => {
+          if (data) console.log(data);
         }}
-        containerStyle={{ width: "100%" }}
+        style={{ width: '100%' }}
       />
     </div>
   );
