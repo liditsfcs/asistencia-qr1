@@ -28,7 +28,6 @@ export default function TeacherPage(){
   useEffect(() => {
     if (!user) return;
     (async ()=>{
-      // buscar materias donde sea profesor
       const q = query(collection(db,"materias"), where("profesores","array-contains", user.email));
       const snap = await getDocs(q);
       const arr = snap.docs.map(d=>({ id:d.id, ...d.data() }));
@@ -47,7 +46,6 @@ export default function TeacherPage(){
   }, [selectedMateria]);
 
   async function exportAsistencia(comisionId){
-    // buscar asistencias para esa comision
     const q = query(collection(db,"asistencias"), where("comisionId","==", comisionId));
     const snap = await getDocs(q);
     if (snap.empty) { setMsg("No hay asistencias para esa comisión"); return; }
@@ -70,35 +68,41 @@ export default function TeacherPage(){
   }
 
   return (
-    <div style={{padding:20}}>
+    <div className="container">
       <h2>Panel Profesores</h2>
       {!user ? (
         <div>
           <button onClick={login}>Login con Google</button>
-          <div>{msg}</div>
+          <div className="message">{msg}</div>
         </div>
       ) : (
         <div>
-          <div>Sesión: {user.displayName} ({user.email}) <button onClick={logout}>Cerrar sesión</button></div>
+          <div className="user-info">
+            <span>Sesión: {user.displayName} ({user.email})</span>
+            <button onClick={logout}>Cerrar sesión</button>
+          </div>
 
           <div style={{marginTop:12}}>
             <h3>Mis materias</h3>
-            {materias.map(m => <div key={m.id}><button onClick={()=>setSelectedMateria(m)}>{m.nombre} ({m.id})</button></div>)}
+            <div className="button-group">
+                {materias.map(m => <button key={m.id} onClick={()=>setSelectedMateria(m)}>{m.nombre} ({m.id})</button>)}
+            </div>
           </div>
 
           {selectedMateria && (
             <div style={{marginTop:12}}>
               <h4>Comisiones de {selectedMateria.nombre}</h4>
-              {comisiones.map(c => (
-                <div key={c.id}>
-                  <span>{c.nombre} — {c.fecha} {c.horaInicio}-{c.horaFin}</span>
-                  <button style={{marginLeft:8}} onClick={()=>exportAsistencia(c.id)}>Exportar CSV/XLSX</button>
-                </div>
-              ))}
+              <div className="button-group">
+                {comisiones.map(c => (
+                  <div key={c.id}>
+                    <span>{c.nombre} — {c.fecha} {c.horaInicio}-{c.horaFin}</span>
+                    <button onClick={()=>exportAsistencia(c.id)}>Exportar CSV/XLSX</button>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
-
-          <div style={{marginTop:12}}>{msg}</div>
+          <div className="message">{msg}</div>
         </div>
       )}
     </div>
