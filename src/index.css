@@ -2,81 +2,60 @@
   font-family: 'Inter', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #333;
-  background-color: #f0f2f5; /* Light gray background */
+  color-scheme: light dark;
+  color: #f1f5f9; /* Soft white */
+  background-color: #0f172a; /* Dark blue background */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Global Styles */
 body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
 }
 
-/* Page container */
+/* Base elements */
+h1, h2 {
+  font-size: 2.5em;
+  line-height: 1.2;
+  color: #e2e8f0; /* Lighter text for headers */
+  margin-bottom: 1rem;
+}
+
+p {
+  color: #94a3b8; /* Subdued text color */
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Container for all pages */
 .container {
-  max-width: 400px;
+  max-width: 500px;
   width: 100%;
-  padding: 2.5rem 2rem;
-  background-color: #ffffff; /* White card background */
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  background-color: #1e293b; /* Darker blue container */
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-/* Headings */
-h1 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #333;
-}
-
-h2 {
-  font-size: 1.2rem;
-  font-weight: 400;
-  color: #666;
-  margin: 0;
-}
-
-/* User profile section */
-.profile-card {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
-.user-photo {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 3px solid #28a745; /* Green border */
-  object-fit: cover;
-}
-
-.user-name {
-  font-weight: 600;
-  margin-top: 0.5rem;
-}
-
-.user-email {
-  font-size: 0.9rem;
-  color: #888;
-}
-
-/* Buttons */
-.main-button {
-  background-color: #28a745; /* Green color */
+/* Button styles */
+button {
+  background-color: #4f46e5; /* Vibrant blue */
   color: #fff;
   border: none;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+  padding: 12px 24px;
+  font-size: 1em;
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
@@ -85,39 +64,39 @@ h2 {
   margin-top: 1rem;
 }
 
-.main-button:hover {
-  background-color: #218838;
+button:hover {
+  background-color: #4338ca;
 }
 
-.secondary-button {
-  background-color: transparent;
-  color: #555;
-  border: 1px solid #ccc;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  font-weight: 600;
+/* Specific component styles */
+.user-info {
+  background-color: #334155;
+  padding: 1rem;
   border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-  margin-top: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-.secondary-button:hover {
-  background-color: #e2e6ea;
+.user-info button {
+  margin-top: 0;
+  width: auto;
+  padding: 8px 16px;
+  background-color: #ef4444; /* Red color for logout */
 }
 
-a {
-  text-decoration: none;
+.user-info button:hover {
+  background-color: #dc2626;
 }
 
-.user-actions {
-  display: flex;
-  flex-direction: column;
+.button-group button {
+  width: auto;
+  margin: 0.5rem;
+  padding: 10px 20px;
 }
 
-.status-message {
-  margin-top: 1.5rem;
-  color: #28a745;
-  font-weight: 600;
+.message {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #334155;
+  color: #e2e8f0;
 }

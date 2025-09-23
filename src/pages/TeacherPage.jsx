@@ -72,51 +72,38 @@ export default function TeacherPage(){
       <h2>Panel Profesores</h2>
       {!user ? (
         <div>
-          <button className="main-button" onClick={login}>Login con Google</button>
-          <div className="status-message">{msg}</div>
+          <button onClick={login}>Login con Google</button>
+          <div className="message">{msg}</div>
         </div>
       ) : (
-        <>
-          <div className="profile-card">
-            <img className="user-photo" src={user.photoURL || "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"} alt="Foto de perfil" />
-            <div className="user-name">{user.displayName}</div>
-            <div className="user-email">{user.email}</div>
+        <div>
+          <div className="user-info">
+            <span>Sesión: {user.displayName} ({user.email})</span>
+            <button onClick={logout}>Cerrar sesión</button>
           </div>
-          
-          <div className="user-actions">
-            <button className="main-button" onClick={logout}>Cerrar Sesión</button>
-          </div>
-          
-          <div className="section-title">
+
+          <div style={{marginTop:12}}>
             <h3>Mis materias</h3>
             <div className="button-group">
-              {materias.map(m => (
-                <button 
-                  key={m.id} 
-                  className="secondary-button"
-                  onClick={()=>setSelectedMateria(m)}
-                >
-                  {m.nombre} ({m.id})
-                </button>
-              ))}
+                {materias.map(m => <button key={m.id} onClick={()=>setSelectedMateria(m)}>{m.nombre} ({m.id})</button>)}
             </div>
           </div>
 
           {selectedMateria && (
-            <div className="section-title">
+            <div style={{marginTop:12}}>
               <h4>Comisiones de {selectedMateria.nombre}</h4>
               <div className="button-group">
                 {comisiones.map(c => (
                   <div key={c.id}>
                     <span>{c.nombre} — {c.fecha} {c.horaInicio}-{c.horaFin}</span>
-                    <button className="secondary-button" onClick={()=>exportAsistencia(c.id)}>Exportar CSV/XLSX</button>
+                    <button onClick={()=>exportAsistencia(c.id)}>Exportar CSV/XLSX</button>
                   </div>
                 ))}
               </div>
             </div>
           )}
-          <div className="status-message">{msg}</div>
-        </>
+          <div className="message">{msg}</div>
+        </div>
       )}
     </div>
   )

@@ -99,9 +99,6 @@ export default function ScanPage() {
           materiaId: comisionValida.data.materiaId,
           comisionId,
           aulaId,
-          fecha: hoyStr, 
-          diaSemana: diaHoy, 
-          hora: hoy.toTimeString().slice(0, 5),
           geo: { lat, lng },
           creadoEn: serverTimestamp(),
         });
@@ -118,33 +115,22 @@ export default function ScanPage() {
 
   return (
     <div className="container">
+      <h2>Escanear QR - Alumnos</h2>
       {!user ? (
-        <>
-          <h1>Registro de Asistencia</h1>
-          <h2>Facultad de Ciencias de la Salud</h2>
-          <div className="user-actions">
-            <button className="main-button" onClick={handleLogin}>Iniciar sesión con Google</button>
-          </div>
-          <p className="status-message">{message}</p>
-        </>
+        <div>
+          <button onClick={handleLogin}>Iniciar sesión con Google</button>
+        </div>
       ) : (
-        <>
-          <div className="profile-card">
-            <img className="user-photo" src={user.photoURL || "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"} alt="Foto de perfil" />
-            <div className="user-name">{user.displayName}</div>
-            <div className="user-email">{user.email}</div>
+        <div>
+          <div className="user-info">
+            <span>Sesión: {user.displayName} ({user.email})</span>
+            <button onClick={handleLogout}>Cerrar sesión</button>
           </div>
-          <div className="user-actions">
-            <button className="main-button" onClick={() => handleScan('tu_aula')}>
-              Registrar mi asistencia
-            </button>
-            <button className="secondary-button" onClick={handleLogout}>
-              Cerrar Sesión
-            </button>
-          </div>
-          <p className="status-message">{message}</p>
-        </>
+          <p>Pantalla de cámara:</p>
+          <QRScanner onResult={handleScan} />
+        </div>
       )}
+      <div className="message">{message}</div>
     </div>
   )
 }
