@@ -28,7 +28,6 @@ export default function TeacherPage(){
   useEffect(() => {
     if (!user) return;
     (async ()=>{
-      // buscar materias donde sea profesor
       const q = query(collection(db,"materias"), where("profesores","array-contains", user.email));
       const snap = await getDocs(q);
       const arr = snap.docs.map(d=>({ id:d.id, ...d.data() }));
@@ -47,7 +46,6 @@ export default function TeacherPage(){
   }, [selectedMateria]);
 
   async function exportAsistencia(comisionId){
-    // buscar asistencias para esa comision
     const q = query(collection(db,"asistencias"), where("comisionId","==", comisionId));
     const snap = await getDocs(q);
     if (snap.empty) { setMsg("No hay asistencias para esa comisión"); return; }
@@ -70,36 +68,55 @@ export default function TeacherPage(){
   }
 
   return (
-    <div style={{padding:20}}>
+    <div className="container">
       <h2>Panel Profesores</h2>
       {!user ? (
         <div>
-          <button onClick={login}>Login con Google</button>
-          <div>{msg}</div>
+          <button className="main-button" onClick={login}>Login con Google</button>
+          <div className="status-message">{msg}</div>
         </div>
       ) : (
-        <div>
-          <div>Sesión: {user.displayName} ({user.email}) <button onClick={logout}>Cerrar sesión</button></div>
-
-          <div style={{marginTop:12}}>
+        <>
+          <div className="profile-card">
+            <img className="user-photo" src={user.photoURL || "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"} alt="Foto de perfil" />
+            <div className="user-name">{user.displayName}</div>
+            <div className="user-email">{user.email}</div>
+          </div>
+          
+          <div className="user-actions">
+            <button className="main-button" onClick={logout}>Cerrar Sesión</button>
+          </div>
+          
+          <div className="section-title">
             <h3>Mis materias</h3>
-            {materias.map(m => <div key={m.id}><button onClick={()=>setSelectedMateria(m)}>{m.nombre} ({m.id})</button></div>)}
+            <div className="button-group">
+              {materias.map(m => (
+                <button 
+                  key={m.id} 
+                  className="secondary-button"
+                  onClick={()=>setSelectedMateria(m)}
+                >
+                  {m.nombre} ({m.id})
+                </button>
+              ))}
+            </div>
           </div>
 
           {selectedMateria && (
-            <div style={{marginTop:12}}>
+            <div className="section-title">
               <h4>Comisiones de {selectedMateria.nombre}</h4>
-              {comisiones.map(c => (
-                <div key={c.id}>
-                  <span>{c.nombre} — {c.fecha} {c.horaInicio}-{c.horaFin}</span>
-                  <button style={{marginLeft:8}} onClick={()=>exportAsistencia(c.id)}>Exportar CSV/XLSX</button>
-                </div>
-              ))}
+              <div className="button-group">
+                {comisiones.map(c => (
+                  <div key={c.id}>
+                    <span>{c.nombre} — {c.fecha} {c.horaInicio}-{c.horaFin}</span>
+                    <button className="secondary-button" onClick={()=>exportAsistencia(c.id)}>Exportar CSV/XLSX</button>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
-
-          <div style={{marginTop:12}}>{msg}</div>
-        </div>
+          <div className="status-message">{msg}</div>
+        </>
       )}
     </div>
   )
