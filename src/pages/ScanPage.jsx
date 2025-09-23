@@ -27,16 +27,13 @@ export default function ScanPage() {
     setMessage("QR leído: " + qrText);
     if (!user) { setMessage("Iniciá sesión primero"); return; }
 
-    // [Paso 1: Solo necesitamos el ID del aula del QR]
     const aulaId = qrText;
 
     try {
-      // obtener aula
       const aulaSnap = await getDoc(doc(db, "aulas", aulaId));
       if (!aulaSnap.exists()) { setMessage("Aula no encontrada en la DB"); return; }
       const aula = aulaSnap.data();
 
-      // ubicación actual
       if (!navigator.geolocation) { setMessage("Geolocalización no soportada"); return; }
       navigator.geolocation.getCurrentPosition(async pos => {
         const lat = pos.coords.latitude;
@@ -47,16 +44,14 @@ export default function ScanPage() {
           return;
         }
 
-        // [Paso 2: Encontrar la comisión por el aula, día y hora]
         const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
         const hoy = new Date();
         const diaHoy = diasSemana[hoy.getDay()];
 
-        // [Paso 2: Encontrar la comisión por el aula, día de la semana y hora]
         const q = query(
           collection(db, "comisiones"),
-          where("aulaId", "==", aulaId), // Buscar por el ID del aula escaneada
-          where("diaSemana", "==", diaHoy) // Buscar por el día de la semana actual
+          where("aulaId", "==", aulaId),
+          where("diaSemana", "==", diaHoy)
         );
         const comisionesEncontradas = await getDocs(q);
 
@@ -73,7 +68,6 @@ export default function ScanPage() {
           const start = new Date(hoy); start.setHours(hiH, hiM, 0, 0);
           const end = new Date(hoy); end.setHours(hfH, hfM, 0, 0);
 
-          // [Paso 3: Validar la franja horaria]
           if (hoy >= start && hoy <= end) {
             comisionValida = { id: doc.id, data: com };
           }
@@ -82,24 +76,20 @@ export default function ScanPage() {
         if (!comisionValida) {
           setMessage("No estás dentro de la franja horaria de ninguna comisión hoy.");
           return;
-        } else {
-          setMessage("estas en una comision valida");
         }
 
-        // [Paso 4: Evitar duplicados y guardar asistencia]
         const comisionId = comisionValida.id;
         const q2 = query(
           collection(db, "asistencias"),
           where("alumno.uid", "==", user.uid),
           where("comisionId", "==", comisionId),
+          where("diaSemana", "==", diaHoy)
           where("diaSemana", "==", diaHoy) // Reemplaza "fecha" con "diaSemana"
         );
         const docsq = await getDocs(q2);
         if (!docsq.empty) {
           setMessage("Ya registraste asistencia para esta comisión hoy.");
           return;
-        } else {
-          setMessage("registrando");
         }
 
         const nombreCompleto = user.displayName || "";
@@ -113,8 +103,12 @@ export default function ScanPage() {
           fecha: hoyStr, // It's still a good idea to save the specific date
           diaSemana: diaHoy, // Add the day of the week here
           hora: hoy.toTimeString().slice(0, 5),
+          fecha: hoyStr, // It's still a good idea to save the specific date
+          diaSemana: diaHoy, // Add the day of the week here
+          hora: hoy.toTimeString().slice(0, 5),
           geo: { lat, lng },
           creadoEn: serverTimestamp(),
+          estado: "PRESENTE"
         });
 
         setMessage("Asistencia registrada correctamente ✅");
@@ -128,20 +122,34 @@ export default function ScanPage() {
   }
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Escanear QR - Alumnos</h2>
+    <div className="container">
       {!user ? (
-        <div>
-          <button onClick={handleLogin}>Iniciar sesión con Google</button>
-        </div>
+        <>
+          <h1>Registro de Asistencia</h1>
+          <h2>Facultad de Ciencias de la Salud</h2>
+          <div className="user-actions">
+            <button className="main-button" onClick={handleLogin}>Iniciar sesión con Google</button>
+          </div>
+          <p className="status-message">{message}</p>
+        </>
       ) : (
-        <div>
-          <div>Sesión: {user.displayName} ({user.email}) <button onClick={handleLogout}>Cerrar sesión</button></div>
-          <p>Pantalla de cámara:</p>
-          <QRScanner onResult={handleScan} />
-        </div>
+        <>
+          <div className="profile-card">
+            <img className="user-photo" src={user.photoURL || "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"} alt="Foto de perfil" />
+            <div className="user-name">{user.displayName}</div>
+            <div className="user-email">{user.email}</div>
+          </div>
+          <div className="user-actions">
+            <button className="main-button" onClick={() => handleScan('tu_aula')}>
+              Registrar mi asistencia
+            </button>
+            <button className="secondary-button" onClick={handleLogout}>
+              Cerrar Sesión
+            </button>
+          </div>
+          <p className="status-message">{message}</p>
+        </>
       )}
-      <div style={{ marginTop: 12 }}>{message}</div>
     </div>
   )
 }
