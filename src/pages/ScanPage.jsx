@@ -92,14 +92,14 @@ export default function ScanPage() {
           collection(db, "asistencias"),
           where("alumno.uid", "==", user.uid),
           where("comisionId", "==", comisionId),
-          where("diaSemana", "==", diaHoy) // Reemplaza "fecha" con "diaSemana"
+          where("diaSemana", "==", diaHoy) 
         );
         const docsq = await getDocs(q2);
         if (!docsq.empty) {
           setMessage("Ya registraste asistencia para esta comisión hoy.");
           return;
         } else {
-          setMessage("primer registro de asistencia a la clase correcto");
+          setMessage("registrando");
         }
 
         const nombreCompleto = user.displayName || "";
@@ -110,12 +110,8 @@ export default function ScanPage() {
           materiaId: comisionValida.data.materiaId,
           comisionId,
           aulaId,
-          fecha: hoyStr, // It's still a good idea to save the specific date
-          diaSemana: diaHoy, // Add the day of the week here
-          hora: hoy.toTimeString().slice(0, 5),
           geo: { lat, lng },
           creadoEn: serverTimestamp(),
-          estado: "PRESENTE"
         });
 
         setMessage("Asistencia registrada correctamente ✅");
