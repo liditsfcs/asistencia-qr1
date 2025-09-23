@@ -84,7 +84,6 @@ export default function ScanPage() {
           where("alumno.uid", "==", user.uid),
           where("comisionId", "==", comisionId),
           where("diaSemana", "==", diaHoy)
-          where("diaSemana", "==", diaHoy) // Reemplaza "fecha" con "diaSemana"
         );
         const docsq = await getDocs(q2);
         if (!docsq.empty) {
@@ -100,15 +99,11 @@ export default function ScanPage() {
           materiaId: comisionValida.data.materiaId,
           comisionId,
           aulaId,
-          fecha: hoyStr, // It's still a good idea to save the specific date
-          diaSemana: diaHoy, // Add the day of the week here
-          hora: hoy.toTimeString().slice(0, 5),
-          fecha: hoyStr, // It's still a good idea to save the specific date
-          diaSemana: diaHoy, // Add the day of the week here
+          fecha: hoyStr, 
+          diaSemana: diaHoy, 
           hora: hoy.toTimeString().slice(0, 5),
           geo: { lat, lng },
           creadoEn: serverTimestamp(),
-          estado: "PRESENTE"
         });
 
         setMessage("Asistencia registrada correctamente ✅");
