@@ -10,7 +10,7 @@ export default function Home(){
       {/* ESPACIO PARA EL LOGO */}
       <div className="logo-container">
         {/* Reemplaza el src con la ruta a tu logo */}
-        <img src="/ruta/a/tu/logo.png" alt="Logo Universidad" className="logo" /> 
+        <img src="./assets/logo-fcs.jpeg" alt="Logo Universidad" className="logo" /> 
       </div>
       
       <h2>Registro de Asistencia</h2>
