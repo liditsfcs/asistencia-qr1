@@ -2,149 +2,146 @@
   font-family: 'Inter', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: light dark;
-  color: #f1f5f9; /* Soft white */
-  background-color: #0f172a; /* Dark blue background */
+  color-scheme: dark;
+  color: #e2e8f0; /* Light text */
+  background-color: #0f172a; /* Deep dark blue background */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Global Styles */
+/* Global Layout */
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
+  justify-content: center;
+  align-items: center;
 }
 
-/* Base elements */
+/* Page Container (Card) */
+.container {
+  max-width: 450px;
+  width: 100%;
+  padding: 3rem 2rem;
+  background-color: #1e293b; /* Dark card color */
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  text-align: center; /* Centra todo el contenido */
+}
+
+/* Typography */
 h1, h2, h3, h4 {
-  font-size: 2.5em;
-  line-height: 1.2;
-  color: #e2e8f0; /* Lighter text for headers */
+  color: #f1f5f9;
+  margin-top: 0;
   margin-bottom: 1rem;
 }
-h3 {
-    font-size: 1.5em; /* Títulos de sección */
+h2 {
+    font-size: 1.8em;
+    font-weight: 600;
 }
-h4 {
-    font-size: 1.2em;
-    margin-bottom: 0.8rem;
-}
-
 p {
-  color: #94a3b8; /* Subdued text color */
+  color: #94a3b8;
 }
 
-a {
-  text-decoration: none;
+/* --- LOGO / Header --- */
+.logo-container {
+    margin-bottom: 2rem;
+}
+.logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
 }
 
-/* Container for all pages */
-.container {
-  max-width: 500px;
-  width: 100%;
-  padding: 2rem;
-  background-color: #1e293b; /* Darker blue container */
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
+/* --- BOTONES MODERNOS Y CENTRADOS --- */
+.action-area {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Espacio entre botones */
+    margin-top: 20px;
 }
 
-/* Button styles */
-.main-button {
-  background-color: #4f46e5; /* Vibrant blue (main action) */
-  color: #fff;
+.modern-button {
+  width: 100%; /* Ocupa todo el ancho del contenedor */
   border: none;
-  padding: 12px 24px;
+  padding: 14px 24px;
   font-size: 1em;
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s;
-  width: 100%;
-  margin-top: 1rem;
+  transition: all 0.3s ease;
+  text-align: center;
+  margin: 0; /* Elimina márgenes antiguos */
 }
 
-.main-button:hover {
-  background-color: #4338ca;
-  transform: translateY(-1px);
+.primary-button {
+    background-color: #4f46e5; /* Vibrant Blue */
+    color: #fff;
+}
+.primary-button:hover {
+    background-color: #3b31c9;
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.4);
 }
 
-/* Specific component styles */
-.user-info {
-  background-color: #334155;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+.secondary-button {
+    background-color: #334155; /* Dark gray for secondary actions */
+    color: #cbd5e1;
+}
+.secondary-button:hover {
+    background-color: #475569;
+    color: #fff;
 }
 
-.user-info .main-button {
-  margin-top: 0;
-  width: auto;
-  padding: 8px 16px;
-  background-color: #ef4444; /* Red color for logout */
+/* Logout Button within Profile Area */
+.profile-logout-button {
+    background-color: transparent;
+    border: 1px solid #ef4444; /* Red border */
+    color: #ef4444;
+    padding: 8px 16px;
+    width: auto;
+    margin-left: 10px;
+}
+.profile-logout-button:hover {
+    background-color: #ef4444;
+    color: #fff;
 }
 
-.user-info .main-button:hover {
-  background-color: #dc2626;
-}
 
-.message {
-  margin-top: 1rem;
-  padding: 1rem;
-  border-radius: 8px;
-  background-color: #334155;
-  color: #e2e8f0;
-}
+/* --- Tarjetas (Materias/Comisiones) --- */
 
-/* --- Nuevos Estilos para Tarjetas y Botones --- */
-
-/* Estilo para el contenedor de la lista (Materias/Comisiones) */
 .card-list {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Espacio entre tarjetas */
+    gap: 8px; 
     margin-top: 15px;
-    text-align: left;
 }
 
-/* Estilo base de la tarjeta (Materia o Comisión) */
 .card {
-    background-color: #334155; /* Fondo de la tarjeta */
+    background-color: #334155;
     padding: 15px;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid transparent;
-    display: flex;
-    flex-direction: column;
+    transition: all 0.2s ease;
+    text-align: left; /* Alinea el texto a la izquierda en la tarjeta */
+    border: 2px solid transparent;
 }
 
 .card:hover {
-    background-color: #475569; /* Color más claro al pasar el mouse */
-    border-color: #4f46e5; /* Borde con el color primario */
-    box-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
+    background-color: #475569;
 }
 
-/* Estado de tarjeta seleccionada */
 .card.selected {
-    border-color: #a855f7; /* Borde con un color secundario (púrpura) para selección */
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
-    background-color: #4f46e5; /* Fondo del color primario al seleccionar */
+    border-color: #4f46e5; 
+    background-color: #1e293b;
 }
 
-/* Estilo de los textos dentro de la tarjeta */
 .card-title {
     font-weight: 600;
     font-size: 1.1em;
     color: #f1f5f9;
-    margin-bottom: 5px;
 }
 
 .card-subtitle {
@@ -152,22 +149,17 @@ a {
     color: #a8a8a8;
 }
 
-/* Estilo para los botones de acción dentro de la tarjeta (e.g., Exportar) */
 .card-action-button {
-    background-color: #10b981; /* Un color de acción secundario (verde) */
+    /* Usando el estilo moderno para el botón dentro de la tarjeta */
+    background-color: #10b981; 
     color: #fff;
-    border: none;
     padding: 8px 16px;
     font-size: 0.9em;
     font-weight: 500;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
     width: auto;
     margin-top: 10px;
-    align-self: flex-end; /* Alinea el botón a la derecha */
+    align-self: flex-end; 
 }
-
 .card-action-button:hover {
     background-color: #059669;
 }

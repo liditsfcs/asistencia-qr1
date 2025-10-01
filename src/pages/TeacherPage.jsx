@@ -28,7 +28,6 @@ export default function TeacherPage(){
   useEffect(() => {
     if (!user) return;
     (async ()=>{
-      // buscar materias donde sea profesor
       const q = query(collection(db,"materias"), where("profesores","array-contains", user.email));
       const snap = await getDocs(q);
       const arr = snap.docs.map(d=>({ id:d.id, ...d.data() }));
@@ -47,7 +46,6 @@ export default function TeacherPage(){
   }, [selectedMateria]);
 
   async function exportAsistencia(comisionId){
-    // buscar asistencias para esa comision
     const q = query(collection(db,"asistencias"), where("comisionId","==", comisionId));
     const snap = await getDocs(q);
     if (snap.empty) { setMsg("No hay asistencias para esa comisión"); return; }
@@ -72,32 +70,31 @@ export default function TeacherPage(){
   return (
     <div className="container">
       <h2>Panel Profesores</h2>
+      
       {!user ? (
-        <div>
-          <button className="main-button" onClick={login}>Login con Google</button>
+        <div className="action-area">
+          <button className="modern-button primary-button" onClick={login}>Login con Google</button>
           <div className="message">{msg}</div>
         </div>
       ) : (
         <div>
           <div className="user-info">
             <span>Sesión: {user.displayName} ({user.email})</span>
-            <button className="main-button" onClick={logout}>Cerrar sesión</button>
+            <button className="profile-logout-button" onClick={logout}>Cerrar sesión</button>
           </div>
 
-          <div style={{marginTop:12}}>
-            <h3>Mis Materias</h3>
-            <div className="card-list">
-              {materias.map(m => (
-                <div 
-                  key={m.id} 
-                  className={`card ${selectedMateria && selectedMateria.id === m.id ? 'selected' : ''}`}
-                  onClick={()=>setSelectedMateria(m)}
-                >
-                    <div className="card-title">{m.nombre}</div>
-                    <div className="card-subtitle">ID: {m.id}</div>
-                </div>
-              ))}
-            </div>
+          <h3 style={{marginTop: '25px'}}>Mis Materias</h3>
+          <div className="card-list">
+            {materias.map(m => (
+              <div 
+                key={m.id} 
+                className={`card ${selectedMateria && selectedMateria.id === m.id ? 'selected' : ''}`}
+                onClick={()=>setSelectedMateria(m)}
+              >
+                  <div className="card-title">{m.nombre}</div>
+                  <div className="card-subtitle">ID: {m.id}</div>
+              </div>
+            ))}
           </div>
 
           {selectedMateria && (

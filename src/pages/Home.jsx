@@ -1,15 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// IMPORTA TU LOGO AQUÍ
+import UniversityLogo from './assets/logo-fcs.jpeg'; 
+
 export default function Home(){
   return (
     <div className="container">
-      <h1>Control de Asistencia</h1>
-      <div style={{marginTop:20}}>
-        <Link to="/scan"><button className="main-button">Escanear QR (Alumnos)</button></Link>
+      {/* ESPACIO PARA EL LOGO */}
+      <div className="logo-container">
+        {/* Reemplaza el src con la ruta a tu logo */}
+        <img src="/ruta/a/tu/logo.png" alt="Logo Universidad" className="logo" /> 
       </div>
-      <div style={{marginTop:12}}>
-        <Link to="/profesores"><button className="main-button">Acceso Profesores</button></Link>
+      
+      <h2>Registro de Asistencia</h2>
+      <p style={{marginBottom: '20px'}}>Facultad de Ciencias de la Salud</p>
+      
+      <div className="action-area">
+        <Link to="/scan">
+          <button className="modern-button primary-button">Escanear QR (Alumnos)</button>
+        </Link>
+        <Link to="/profesores">
+          <button className="modern-button secondary-button">Acceso Profesores</button>
+        </Link>
       </div>
     </div>
   );
