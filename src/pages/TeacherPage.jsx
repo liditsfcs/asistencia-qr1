@@ -28,6 +28,7 @@ export default function TeacherPage(){
   useEffect(() => {
     if (!user) return;
     (async ()=>{
+      // buscar materias donde sea profesor
       const q = query(collection(db,"materias"), where("profesores","array-contains", user.email));
       const snap = await getDocs(q);
       const arr = snap.docs.map(d=>({ id:d.id, ...d.data() }));
@@ -46,6 +47,7 @@ export default function TeacherPage(){
   }, [selectedMateria]);
 
   async function exportAsistencia(comisionId){
+    // buscar asistencias para esa comision
     const q = query(collection(db,"asistencias"), where("comisionId","==", comisionId));
     const snap = await getDocs(q);
     if (snap.empty) { setMsg("No hay asistencias para esa comisión"); return; }
@@ -72,36 +74,54 @@ export default function TeacherPage(){
       <h2>Panel Profesores</h2>
       {!user ? (
         <div>
-          <button onClick={login}>Login con Google</button>
+          <button className="main-button" onClick={login}>Login con Google</button>
           <div className="message">{msg}</div>
         </div>
       ) : (
         <div>
           <div className="user-info">
             <span>Sesión: {user.displayName} ({user.email})</span>
-            <button onClick={logout}>Cerrar sesión</button>
+            <button className="main-button" onClick={logout}>Cerrar sesión</button>
           </div>
 
           <div style={{marginTop:12}}>
-            <h3>Mis materias</h3>
-            <div className="button-group">
-                {materias.map(m => <button key={m.id} onClick={()=>setSelectedMateria(m)}>{m.nombre} ({m.id})</button>)}
+            <h3>Mis Materias</h3>
+            <div className="card-list">
+              {materias.map(m => (
+                <div 
+                  key={m.id} 
+                  className={`card ${selectedMateria && selectedMateria.id === m.id ? 'selected' : ''}`}
+                  onClick={()=>setSelectedMateria(m)}
+                >
+                    <div className="card-title">{m.nombre}</div>
+                    <div className="card-subtitle">ID: {m.id}</div>
+                </div>
+              ))}
             </div>
           </div>
 
           {selectedMateria && (
-            <div style={{marginTop:12}}>
+            <div style={{marginTop:24}}>
               <h4>Comisiones de {selectedMateria.nombre}</h4>
-              <div className="button-group">
+              <div className="card-list">
                 {comisiones.map(c => (
-                  <div key={c.id}>
-                    <span>{c.nombre} — {c.fecha} {c.horaInicio}-{c.horaFin}</span>
-                    <button onClick={()=>exportAsistencia(c.id)}>Exportar CSV/XLSX</button>
+                  <div key={c.id} className="card">
+                    <div className="card-title">{c.nombre}</div>
+                    <div className="card-subtitle">
+                        Aula: {c.aulaId} | {c.diaSemana} ({c.horaInicio} - {c.horaFin})
+                    </div>
+                    <button 
+                        className="card-action-button" 
+                        onClick={()=>exportAsistencia(c.id)}
+                    >
+                        Exportar XLSX
+                    </button>
                   </div>
                 ))}
               </div>
             </div>
           )}
+
           <div className="message">{msg}</div>
         </div>
       )}
