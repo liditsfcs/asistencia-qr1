@@ -2,157 +2,119 @@
   font-family: 'Inter', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: light; /* Ahora es un tema claro */
-  color: #333; /* Color de texto principal */
-  background-color: #f0f2f5; /* Fondo azul muy claro, casi blanco */
+  color-scheme: light;
+  color: #333; /* Texto oscuro */
+  background-color: #f0f2f5; /* Fondo suave (casi blanco) */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* -------------------- Estilo de Contenedor y Centrado -------------------- */
+
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical */
 }
 
-/* El contenedor principal que actúa como la "tarjeta" blanca */
+/* La tarjeta principal - Emulando el estilo del div Tailwind */
 .container {
   max-width: 400px;
   width: 100%;
   padding: 2.5rem 2rem;
   background-color: #ffffff; /* Fondo blanco */
-  border-radius: 16px; /* Bordes redondeados */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  text-align: center; /* Todo el contenido centrado */
+  border-radius: 1rem; /* Borde redondeado grande (rounded-2xl) */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Sombra fuerte (shadow-xl) */
+  text-align: center;
 }
 
-/* Encabezados */
+/* -------------------- Tipografía -------------------- */
+
 h1 {
-  font-size: 1.8rem;
-  font-weight: 600;
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 700; /* font-bold */
+  color: #1f2937; /* gray-800 */
   margin-bottom: 0.5rem;
-  color: #333;
 }
 
 h2 {
   font-size: 1.2rem;
   font-weight: 400;
-  color: #666;
-  margin: 0; /* Elimina margen superior/inferior por defecto */
+  color: #6b7280; /* gray-500 */
+  margin: 0 0 1.5rem 0; /* mb-6 */
 }
 
-/* Contenedor del logo superior (circular) */
-.university-logo-container {
-  margin-bottom: 2rem;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background-color: #add8e6; /* Un azul claro para el fondo del logo */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
+/* -------------------- Estilos de Logo y Perfil -------------------- */
+
+.logo-fcs {
+  width: 96px; /* w-24 */
+  height: 96px; /* h-24 */
+  margin: 0 auto 1rem auto; /* mx-auto mb-4 */
+  border-radius: 50%; /* rounded-full */
+  object-fit: cover;
+  /* El escalado 1500% del ejemplo es inusual. Usaremos el tamaño estándar. */
 }
 
-.university-logo {
-  width: 50px; /* Ajusta el tamaño del logo dentro del círculo */
-  height: 50px;
-  object-fit: contain;
-  /* Puedes poner un icono SVG o una imagen aquí */
-}
+/* -------------------- Botones de Acción -------------------- */
 
-/* Sección de perfil del usuario (nombre, email, foto) */
-.profile-section {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
-.user-photo {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%; /* Circular */
-  border: 3px solid #28a745; /* Borde verde como en la imagen */
-  object-fit: cover; /* Asegura que la imagen cubra el círculo */
-  margin-bottom: 0.5rem;
-}
-
-.user-name {
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 0.2rem;
-}
-
-.user-email {
-  font-size: 0.9rem;
-  color: #888;
-}
-
-/* Contenedor de acciones (para agrupar botones) */
 .action-buttons-group {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem; /* Espacio entre los botones */
+  gap: 0.75rem; /* space-y-3 */
   margin-top: 2rem;
 }
 
-/* Botón principal (verde) */
-.primary-action-button {
-  background-color: #28a745; /* Verde vibrante */
-  color: #fff;
+.modern-button {
+  width: 100%;
+  font-weight: 700; /* font-bold */
+  padding: 0.75rem 1rem; /* py-3 px-4 */
+  border-radius: 0.5rem; /* rounded-lg */
   border: none;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  width: 100%;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); /* shadow-md */
 }
 
-.primary-action-button:hover {
-  background-color: #218838; /* Verde un poco más oscuro al pasar el mouse */
-  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4); /* Sombra con el color del botón */
+/* Botón Principal - Login / Alumnos */
+.primary-button-sky {
+  background-color: #0284c7; /* sky-600 */
+  color: #fff;
+}
+.primary-button-sky:hover {
+  background-color: #0369a1; /* sky-700 */
 }
 
-/* Botón secundario (gris claro) */
-.secondary-action-button {
-  background-color: #e9ecef; /* Gris claro */
-  color: #555;
-  border: none; /* Sin borde */
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  width: 100%;
+/* Botón de Asistencia - Verde Esmeralda */
+.primary-button-emerald {
+  background-color: #10b981; /* emerald-500 */
+  color: #fff;
+}
+.primary-button-emerald:hover {
+  background-color: #059669; /* emerald-600 */
 }
 
-.secondary-action-button:hover {
-  background-color: #dae0e5; /* Gris un poco más oscuro al pasar el mouse */
-  color: #333;
+/* Botón de Cerrar Sesión (gris suave) */
+.logout-button {
+  background-color: #e5e7eb; /* gray-200 */
+  color: #374151; /* gray-700 */
+  font-weight: 600; /* font-semibold */
+  padding: 0.5rem 1rem; /* py-2 px-4 */
+  font-size: 0.875rem; /* text-sm */
+  box-shadow: none;
+  margin-top: 0.5rem;
+}
+.logout-button:hover {
+  background-color: #d1d5db; /* gray-300 */
 }
 
-a {
-  text-decoration: none; /* Quita el subrayado de los enlaces */
-}
-
-/* Mensajes de estado (éxito/error) */
+/* Mensajes de estado */
 .status-message {
   margin-top: 1.5rem;
   font-weight: 600;
-  color: #333; /* Por defecto, un color oscuro */
-}
-.status-message.success {
-  color: #28a745; /* Verde para éxito */
-}
-.status-message.error {
-  color: #dc3545; /* Rojo para error */
+  color: #6b7280;
 }
