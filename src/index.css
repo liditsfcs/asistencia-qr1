@@ -2,164 +2,157 @@
   font-family: 'Inter', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: dark;
-  color: #e2e8f0; /* Light text */
-  background-color: #0f172a; /* Deep dark blue background */
+  color-scheme: light; /* Ahora es un tema claro */
+  color: #333; /* Color de texto principal */
+  background-color: #f0f2f5; /* Fondo azul muy claro, casi blanco */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Global Layout */
 body {
   margin: 0;
   display: flex;
+  place-items: center;
   min-width: 320px;
   min-height: 100vh;
   justify-content: center;
   align-items: center;
 }
 
-/* Page Container (Card) */
+/* El contenedor principal que actúa como la "tarjeta" blanca */
 .container {
-  max-width: 450px;
+  max-width: 400px;
   width: 100%;
-  padding: 3rem 2rem;
-  background-color: #1e293b; /* Dark card color */
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-  text-align: center; /* Centra todo el contenido */
+  padding: 2.5rem 2rem;
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 16px; /* Bordes redondeados */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  text-align: center; /* Todo el contenido centrado */
 }
 
-/* Typography */
-h1, h2, h3, h4 {
-  color: #f1f5f9;
-  margin-top: 0;
-  margin-bottom: 1rem;
+/* Encabezados */
+h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
 }
+
 h2 {
-    font-size: 1.8em;
-    font-weight: 600;
-}
-p {
-  color: #94a3b8;
-}
-
-/* --- LOGO / Header --- */
-.logo-container {
-    margin-bottom: 2rem;
-}
-.logo {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #666;
+  margin: 0; /* Elimina margen superior/inferior por defecto */
 }
 
-/* --- BOTONES MODERNOS Y CENTRADOS --- */
-.action-area {
-    display: flex;
-    flex-direction: column;
-    gap: 12px; /* Espacio entre botones */
-    margin-top: 20px;
+/* Contenedor del logo superior (circular) */
+.university-logo-container {
+  margin-bottom: 2rem;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #add8e6; /* Un azul claro para el fondo del logo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.modern-button {
-  width: 100%; /* Ocupa todo el ancho del contenedor */
+.university-logo {
+  width: 50px; /* Ajusta el tamaño del logo dentro del círculo */
+  height: 50px;
+  object-fit: contain;
+  /* Puedes poner un icono SVG o una imagen aquí */
+}
+
+/* Sección de perfil del usuario (nombre, email, foto) */
+.profile-section {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.user-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%; /* Circular */
+  border: 3px solid #28a745; /* Borde verde como en la imagen */
+  object-fit: cover; /* Asegura que la imagen cubra el círculo */
+  margin-bottom: 0.5rem;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.2rem;
+}
+
+.user-email {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* Contenedor de acciones (para agrupar botones) */
+.action-buttons-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem; /* Espacio entre los botones */
+  margin-top: 2rem;
+}
+
+/* Botón principal (verde) */
+.primary-action-button {
+  background-color: #28a745; /* Verde vibrante */
+  color: #fff;
   border: none;
-  padding: 14px 24px;
-  font-size: 1em;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-  margin: 0; /* Elimina márgenes antiguos */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
 }
 
-.primary-button {
-    background-color: #4f46e5; /* Vibrant Blue */
-    color: #fff;
-}
-.primary-button:hover {
-    background-color: #3b31c9;
-    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.4);
+.primary-action-button:hover {
+  background-color: #218838; /* Verde un poco más oscuro al pasar el mouse */
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4); /* Sombra con el color del botón */
 }
 
-.secondary-button {
-    background-color: #334155; /* Dark gray for secondary actions */
-    color: #cbd5e1;
-}
-.secondary-button:hover {
-    background-color: #475569;
-    color: #fff;
-}
-
-/* Logout Button within Profile Area */
-.profile-logout-button {
-    background-color: transparent;
-    border: 1px solid #ef4444; /* Red border */
-    color: #ef4444;
-    padding: 8px 16px;
-    width: auto;
-    margin-left: 10px;
-}
-.profile-logout-button:hover {
-    background-color: #ef4444;
-    color: #fff;
+/* Botón secundario (gris claro) */
+.secondary-action-button {
+  background-color: #e9ecef; /* Gris claro */
+  color: #555;
+  border: none; /* Sin borde */
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100%;
 }
 
-
-/* --- Tarjetas (Materias/Comisiones) --- */
-
-.card-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px; 
-    margin-top: 15px;
+.secondary-action-button:hover {
+  background-color: #dae0e5; /* Gris un poco más oscuro al pasar el mouse */
+  color: #333;
 }
 
-.card {
-    background-color: #334155;
-    padding: 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-align: left; /* Alinea el texto a la izquierda en la tarjeta */
-    border: 2px solid transparent;
+a {
+  text-decoration: none; /* Quita el subrayado de los enlaces */
 }
 
-.card:hover {
-    background-color: #475569;
+/* Mensajes de estado (éxito/error) */
+.status-message {
+  margin-top: 1.5rem;
+  font-weight: 600;
+  color: #333; /* Por defecto, un color oscuro */
 }
-
-.card.selected {
-    border-color: #4f46e5; 
-    background-color: #1e293b;
+.status-message.success {
+  color: #28a745; /* Verde para éxito */
 }
-
-.card-title {
-    font-weight: 600;
-    font-size: 1.1em;
-    color: #f1f5f9;
-}
-
-.card-subtitle {
-    font-size: 0.9em;
-    color: #a8a8a8;
-}
-
-.card-action-button {
-    /* Usando el estilo moderno para el botón dentro de la tarjeta */
-    background-color: #10b981; 
-    color: #fff;
-    padding: 8px 16px;
-    font-size: 0.9em;
-    font-weight: 500;
-    width: auto;
-    margin-top: 10px;
-    align-self: flex-end; 
-}
-.card-action-button:hover {
-    background-color: #059669;
+.status-message.error {
+  color: #dc3545; /* Rojo para error */
 }
