@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 // IMPORTA TU LOGO AQUÍ. Asegúrate de que la ruta sea correcta.
 // Si tu logo está en 'src/assets/logo-fcs.svg', entonces:
-import UniversityLogo from '../assets/logo-fcs.svg';
+import UniversityLogo from '../assets/logo-fcs.jpeg';
 // Si tu logo está en 'public/logo-fcs.svg', entonces puedes usar "/logo-fcs.svg" directamente en el src de la imagen.
 
 export default function Home(){
